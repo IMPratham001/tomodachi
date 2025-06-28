@@ -1,0 +1,334 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 2%;
+    --foreground: 0 0% 98%;
+
+    /* Grays */
+    --gray-dark: 0 0% 8%;
+    --gray-medium: 0 0% 12%;
+    --gray-light: 0 0% 25%;
+
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 2%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: var(--gray-medium);
+    --secondary-foreground: 0 0% 98%;
+    --muted: var(--gray-medium);
+    --muted-foreground: 0 0% 60%;
+    --accent: var(--gray-medium);
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 43.7%;
+    --destructive-foreground: 0 0% 98%;
+    --border: var(--gray-medium);
+    --input: var(--gray-medium);
+    --ring: 0 0% 83.1%;
+    --radius: 0.5rem;
+
+    /* Custom Sinister Theme */
+    --blood-red: 350 100% 50%;
+    --blood-red-dark: 350 90% 30%;
+    --sinister-glow: 0 0 12px hsl(var(--blood-red)), 0 0 24px hsl(var(--blood-red-dark));
+    --blood-text: 350 90% 65%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Courier Prime', monospace; /* More thematic font */
+  }
+}
+
+/* Custom classes for the creepy theme */
+.sinister-glow {
+  box-shadow: var(--sinister-glow);
+  transition: all 0.3s ease-in-out;
+}
+
+.sinister-glow:hover {
+  box-shadow: 0 0 18px hsl(var(--blood-red)), 0 0 36px hsl(var(--blood-red-dark)), inset 0 0 6px hsl(var(--blood-red-dark));
+}
+
+.blood-text {
+  color: hsl(var(--blood-text));
+  text-shadow: 0 0 6px hsl(var(--blood-red-dark));
+}
+
+.thriller-card {
+  @apply bg-black/60 border-red-900/40 backdrop-blur-sm transition-all duration-300;
+}
+
+.thriller-card:hover {
+  @apply border-red-700/60 shadow-lg shadow-red-950/30;
+}
+
+.psychological-message {
+  @apply bg-black/20 border border-red-900/20 p-4 rounded-lg text-center text-red-300/80 italic shadow-inner shadow-red-950/30;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.manipulation-text {
+  @apply animate-pulse-slow;
+  text-shadow: 0 0 8px rgba(220, 20, 60, 0.4);
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0); }
+}
+
+.animate-float {
+  animation: float 20s ease-in-out infinite;
+  text-shadow: 0 0 8px hsl(var(--blood-red-dark) / 0.5);
+}
+
+.bot-emotion {
+  animation: flicker 1.5s infinite alternate;
+}
+
+@keyframes flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    text-shadow:
+      0 0 4px #fff,
+      0 0 11px #fff,
+      0 0 19px #fff,
+      0 0 40px hsl(var(--blood-red)),
+      0 0 80px hsl(var(--blood-red)),
+      0 0 90px hsl(var(--blood-red)),
+      0 0 100px hsl(var(--blood-red)),
+      0 0 150px hsl(var(--blood-red));
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+  }
+}
+
+@layer components {
+  .secret-card {
+    background: radial-gradient(circle at center, hsl(var(--blood-red) / 0.2), transparent);
+    border: 2px solid hsl(var(--blood-red) / 0.5);
+    box-shadow: 
+      0 0 25px hsl(var(--blood-red) / 0.3),
+      inset 0 0 20px rgba(0,0,0,0.5);
+    animation: pulse-blood 3s ease-in-out infinite alternate;
+  }
+  
+  .secret-card:hover {
+    box-shadow: 
+      0 0 40px hsl(var(--blood-red) / 0.6),
+      inset 0 0 30px rgba(0,0,0,0.7);
+  }
+  
+  .oldmaid-card {
+    background: linear-gradient(45deg, #000 0%, #8B0000 50%, #000 100%);
+    border: 2px solid #DC143C;
+    box-shadow: 
+      0 0 30px #DC143C,
+      inset 0 0 20px rgba(220,20,60,0.3);
+    animation: ominous-glow 2s ease-in-out infinite alternate;
+  }
+  
+  .trust-indicator {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(90deg, #000 0%, #8B0000 50%, #000 100%);
+  }
+  
+  .trust-indicator::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(220,20,60,0.4), transparent);
+    transition: left 0.8s;
+  }
+  
+  .trust-indicator:hover::before {
+    left: 100%;
+  }
+  
+  .card-flip {
+    perspective: 1000px;
+  }
+  
+  .card-flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+  }
+  
+  .card-flip.flipped .card-flip-inner {
+    transform: rotateY(180deg);
+  }
+  
+  .card-flip-front,
+  .card-flip-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 0.75rem;
+  }
+  
+  .card-flip-back {
+    transform: rotateY(180deg);
+  }
+  
+  .draw-animation {
+    animation: sinister-draw 1s ease-out;
+  }
+  
+  @keyframes sinister-draw {
+    0% {
+      transform: translateY(100px) scale(0.5) rotateZ(-15deg);
+      opacity: 0;
+      filter: blur(5px);
+    }
+    50% {
+      transform: translateY(-30px) scale(1.2) rotateZ(5deg);
+      opacity: 0.8;
+      filter: blur(2px);
+    }
+    100% {
+      transform: translateY(0) scale(1) rotateZ(0deg);
+      opacity: 1;
+      filter: blur(0px);
+    }
+  }
+  
+  .reveal-animation {
+    animation: dark-reveal 1.2s ease-out;
+  }
+  
+  @keyframes dark-reveal {
+    0% {
+      transform: scale(0.3) rotateZ(-20deg);
+      opacity: 0;
+      filter: brightness(0);
+    }
+    30% {
+      transform: scale(1.3) rotateZ(10deg);
+      opacity: 0.6;
+      filter: brightness(1.5);
+    }
+    60% {
+      transform: scale(0.9) rotateZ(-5deg);
+      opacity: 0.9;
+      filter: brightness(1.2);
+    }
+    100% {
+      transform: scale(1) rotateZ(0deg);
+      opacity: 1;
+      filter: brightness(1);
+    }
+  }
+  
+  .tutorial-highlight {
+    position: relative;
+    z-index: 1000;
+  }
+  
+  .tutorial-highlight::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    background: linear-gradient(45deg, transparent, hsl(var(--blood-red) / 0.5), transparent);
+    border-radius: inherit;
+    z-index: -1;
+    animation: tutorial-pulse 2s ease-in-out infinite;
+  }
+  
+  @keyframes tutorial-pulse {
+    0%, 100% {
+      opacity: 0.5;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+  }
+}
+
+.glass-card {
+  background: hsl(var(--card) / 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid hsl(var(--border) / 0.2);
+}
+
+/* Brick wall background pattern */
+.brick-wall-bg {
+  background-color: #232323;
+  background-image:
+    linear-gradient(90deg, #2a2a2a 2px, transparent 2px),
+    linear-gradient(180deg, #2a2a2a 2px, transparent 2px),
+    linear-gradient(90deg, #191919 1px, transparent 1px),
+    linear-gradient(180deg, #191919 1px, transparent 1px);
+  background-size: 60px 30px, 60px 30px, 12px 6px, 12px 6px;
+  background-position: 0 0, 0 0, 0 0, 0 0;
+}
+
+/* Blood splatter utility */
+.blood-splatter {
+  position: absolute;
+  pointer-events: none;
+  z-index: 10;
+  border-radius: 50%;
+  background: radial-gradient(circle at 60% 40%, #a80000 0%, #5a0000 80%, transparent 100%);
+  opacity: 0.7;
+  filter: blur(1px) drop-shadow(0 0 8px #a80000);
+  animation: blood-drip 3s infinite alternate;
+}
+
+@keyframes blood-drip {
+  0% { opacity: 0.7; transform: scale(1) translateY(0); }
+  100% { opacity: 1; transform: scale(1.1) translateY(10px); }
+}
+
+.blood-drip {
+  position: absolute;
+  width: 16px;
+  height: 48px;
+  background: linear-gradient(to bottom, #a80000 60%, #5a0000 100%);
+  border-radius: 8px 8px 16px 16px;
+  opacity: 0.85;
+  filter: blur(0.5px) drop-shadow(0 0 8px #a80000);
+  animation: blood-drip 2.5s infinite alternate;
+}
